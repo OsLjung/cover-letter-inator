@@ -27,27 +27,24 @@ class Agent:
             ],
             extra_body={"reasoning": {"enabled": True}}
         )
-        return response.choices[0].message.content
-        # # Extract the assistant message with reasoning_details
-        # response = response.choices[0].message
+        # Extract the assistant message with reasoning_details
 
-        # # Preserve the assistant message with reasoning_details
-        # messages = [
-        #     {"role": "user", "content": user_input},
-        #     {
-        #         "role": "assistant",
-        #         "content": response.content,
-        #         "reasoning_details": response.reasoning_details  # Pass back unmodified
-        #     },
-        #     {"role": "user", "content": "Are you sure? Think carefully."}
-        # ]
+        # Preserve the assistant message with reasoning_details
+        messages = [
+            {"role": "user", "content": user_input},
+            {
+                "role": "assistant",
+                "content": response.content,
+                "reasoning_details": response.reasoning_details  # Pass back unmodified
+            },
+            {"role": "user", "content": "Are you sure? Think carefully."}
+        ]
+        #second api call.
+        response2 = self.client.chat.compleations.create(
 
-        # # Second API call - model continues reasoning from where it left off
-        # response2 = self.client.chat.completions.create(
-        #     model="openrouter/free",
-        #     messages=messages,
-        #     extra_body={"reasoning": {"enabled": True}}
-        # )
+            model="openrouter/free",
+            messages=messages,
+        )
 
         return response2.choices[0].message.content
 if __name__ == "__main__":
