@@ -1,1 +1,3 @@
 apiKeyPath: ../ConfigFiles/apikey.txt
+systemPromptPath: ../ConfigFiles/system_prompt.txt
+cotPromptPath: ../ConfigFiles/cot_prompt.txt
