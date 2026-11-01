@@ -1,3 +1,4 @@
 apiKeyPath: ../ConfigFiles/apikey.txt
 systemPromptPath: ../ConfigFiles/system_prompt.txt
 cotPromptPath: ../ConfigFiles/cot_prompt.txt
+cvPath : ../ConfigFiles/CV-20025-10-09-eng.txt

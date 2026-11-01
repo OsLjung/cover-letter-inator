@@ -1,6 +1,6 @@
 import yaml
 from openai import OpenAI
-
+from pypdf import PdfReader
 class Agent:
     def __init__(self, name):
         self.name = name
@@ -21,7 +21,22 @@ class Agent:
             base_url="https://openrouter.ai/api/v1",
             api_key=self.api_key
             )
-        
+    def fetchCV(self, cv_path):
+            reader = PdfReader(cv_path)
+            content = ""
+            for page in reader.pages: 
+                content += page.extract_text()
+            content = content.replace('\n', '')
+            return content
+    
+    def fetchPosting(self, posting_path):
+        reader = PdfReader(posting_path)
+        content = ""
+        for page in reader.pages:
+            content += page.extract_text()
+        content = content.replace('\n', '')
+        return content
+    
     def generate_response(self, user_input):
         # First API call with reasoning
         response = self.client.chat.completions.create(
@@ -58,4 +73,4 @@ class Agent:
 if __name__ == "__main__":
     agent = Agent("MyAgent")
     #print(agent.generate_response('this is a test, please respond with a with the names of all the ninja turtles'))
-    print (agent.system_prompt, agent.cot_prompt)
+    agent.fetchCV('/home/oskar/Documents/coverletterinator/ConfigFiles/cvs/CV-2026-10-31-eng.pdf')
